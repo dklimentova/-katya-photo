@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цветочный магазин — Доставка букетов</title>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --surface: #ffffff;
+            --text: #1f1f1f;
+            --muted: #6b6b6b;
+            --accent: #b45b45; /* теплый терракот */
+            --accent-2: #8f3f2e;
+            --line: rgba(31, 31, 31, 0.12);
+            --shadow: 0 18px 50px rgba(31, 31, 31, 0.10);
+            --radius: 18px;
+            --body-font: "Graphik Web", "Segoe UI", Arial, sans-serif;
+            --heading-font: "JHA Times Now Cn Cn", Georgia, "Times New Roman", serif;
+            --nav-h: 60px;
+            --nav-pad-x: 26px;
+        }
+
+        body {
+            font-family: var(--body-font);
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--heading-font);
+            letter-spacing: 0.2px;
+            margin: 0 0 10px 0;
+            font-weight: 600;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.92);
+            border-bottom: 1px solid var(--line);
+            padding: 18px 12px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        @media (min-width: 768px) {
+            header { display: none; }
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line);
+            padding: 12px 10px;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        nav .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .logo {
+            font-family: var(--body-font);
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            flex: 1;
+        }
+
+        nav a {
+            font-size: 14px;
+            color: var(--text);
+            padding: 0;
+            border-radius: 0;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            position: relative;
+            display: inline-block;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -8px;
+            height: 1px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 200ms ease;
+            opacity: 0.9;
+        }
+
+        nav a:hover {
+            background: transparent;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        nav a:hover::after {
+            transform: scaleX(1);
+        }
+
+        nav a:focus-visible::after {
+            transform: scaleX(1);
+        }
+
+        nav .nav-cta {
+            font-size: 13px;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding-top: var(--nav-h);
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                padding: 12px var(--nav-pad-x);
+                background: rgba(255, 255, 255, 0.0);
+                backdrop-filter: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.0);
+            }
+
+            nav .nav-inner {
+                max-width: none;
+                margin: 0;
+            }
+
+            nav a {
+                color: var(--text);
+            }
+
+            nav .nav-cta {
+                color: var(--text);
+            }
+
+            nav a::after {
+                background: var(--text);
+                opacity: 1;
+                bottom: -9px;
+            }
+
+            nav a:hover {
+                color: var(--text);
+            }
+
+            nav a:hover::after {
+                transform: scaleX(1);
+            }
+
+            .hero {
+                min-height: calc(100vh - var(--nav-h));
+            }
+        }
+
+        .hero {
+            position: relative;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.06) 55%, rgba(0, 0, 0, 0) 100%),
+                url('hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            color: white;
+            padding: 24px 20px;
+            text-align: left;
+        }
+
+        .hero .hero-content {
+            max-width: 650px;
+            padding-left: 10px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            line-height: 1.08;
+            margin-bottom: 18px;
+        }
+
+        .hero a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            color: #1f1f1f;
+            padding: 12px 18px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-family: var(--heading-font);
+            text-decoration: none;
+        }
+
+        .hero a:hover {
+            background: rgba(255, 255, 255, 0.82);
+            text-decoration: none;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 26px;
+            padding: 56px 0 60px;
+            max-width: none;
+            margin: 0;
+            align-items: start;
+        }
+
+        section {
+            max-width: none;
+            margin: 0;
+        }
+
+        .catalog-head {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 4px;
+            padding: 0 0;
+        }
+
+        .catalog-head h2 {
+            margin: 0;
+        }
+
+        .catalog-all {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #111;
+            color: #fff;
+            padding: 11px 16px;
+            border: 1px solid #111;
+            border-radius: 0;
+            font-family: var(--heading-font);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .catalog-all:hover {
+            background: #000;
+            border-color: #000;
+            text-decoration: none;
+        }
+
+        .filters {
+            grid-column: 1 / -1;
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 14px;
+            align-items: center;
+        }
+
+        .filters a {
+            color: var(--muted);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+        }
+
+        .filters a:hover {
+            color: var(--text);
+            border-bottom-color: rgba(31, 31, 31, 0.35);
+        }
+
+        .product {
+            background: #ffffff;
+            border: 1px solid transparent;
+            border-radius: 0;
+            padding: 0;
+            overflow: hidden;
+            text-align: left;
+            box-shadow: 0 0 0 rgba(31, 31, 31, 0.06);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .product img {
+            width: 100%;
+            height: 285px;
+            object-fit: cover;
+            display: block;
+            margin: 0;
+            background: #fff;
+            border-radius: 0;
+        }
+
+        .product h3 {
+            font-size: 18px;
+            margin: 0;
+            padding: 16px 16px 6px;
+        }
+
+        .product p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            padding: 0 16px 16px;
+        }
+
+        .product p button {
+            margin-left: 10px;
+            padding: 9px 14px;
+            font-size: 13px;
+            font-family: var(--heading-font);
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(31, 31, 31, 0.26);
+            color: var(--text);
+            transition: background 0.15s ease, transform 0.08s ease;
+        }
+
+        .product p button:hover {
+            background: rgba(255, 255, 255, 1);
+            text-decoration: none;
+        }
+
+        .product:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(31, 31, 31, 0.10);
+            border-color: var(--text);
+        }
+
+        #catalog > button {
+            grid-column: 1 / -1;
+            justify-self: center;
+            margin-top: 8px;
+        }
+
+        @media (min-width: 1100px) {
+            .catalog-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            padding: 11px 18px;
+            border-radius: 0;
+            font-size: 14px;
+            font-family: var(--heading-font);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            transition: transform 0.08s ease, background 0.15s ease;
+        }
+
+        button:hover {
+            background: var(--accent-2);
+            text-decoration: none;
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        #contact {
+            margin-top: 44px;
+            padding: 56px 28px;
+            background: #2f4a96;
+            color: #fff;
+            display: grid;
+            grid-template-columns: minmax(320px, 1fr) minmax(320px, 520px);
+            gap: 34px;
+            align-items: stretch;
+        }
+
+        #contact h2 {
+            color: #fff;
+            margin: 0 0 12px;
+        }
+
+        #contact .contact-text {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.86);
+            max-width: 460px;
+        }
+
+        #contact .contact-left {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 520px;
+        }
+
+        #contact .contact-right {
+            min-height: 360px;
+        }
+
+        #contact .contact-photo {
+            width: 100%;
+            height: 100%;
+            min-height: 360px;
+            object-fit: cover;
+            display: block;
+            border: 1px solid rgba(255, 255, 255, 0.32);
+        }
+
+        .reviews-section {
+            padding: 56px 0 40px;
+        }
+
+        #companies {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: minmax(360px, 1.2fr) minmax(320px, 1fr);
+            gap: 0;
+            align-items: stretch;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .companies-media {
+            min-height: 520px;
+        }
+
+        .companies-media img {
+            width: 100%;
+            height: 100%;
+            min-height: 520px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .companies-content {
+            padding: 56px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #fff;
+        }
+
+        .companies-content h2 {
+            font-size: clamp(38px, 5vw, 56px);
+            line-height: 0.98;
+            max-width: 460px;
+            margin-bottom: 18px;
+        }
+
+        .companies-content p {
+            font-size: 18px;
+            color: var(--text);
+            max-width: 440px;
+            margin: 0 0 26px;
+        }
+
+        .companies-content .catalog-all {
+            align-self: flex-start;
+        }
+
+        .reviews-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .review-photo {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            border: 1px solid transparent;
+            transition: border-color 0.15s ease;
+        }
+
+        .review-photo:hover {
+            border-color: var(--text);
+        }
+
+        #contact form {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        #contact form input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 0;
+            border: 1px solid rgba(255, 255, 255, 0.58);
+            outline: none;
+            background: #2f4a96;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+            margin-bottom: 10px;
+        }
+
+        #contact form input::placeholder {
+            color: rgba(255, 255, 255, 0.86);
+        }
+
+        #contact form button {
+            margin-top: 8px;
+            width: 100%;
+            background: #fff;
+            color: #1f1f1f;
+            border: 1px solid #fff;
+        }
+
+        #contact form button:hover {
+            background: rgba(255, 255, 255, 0.88);
+            color: #1f1f1f;
+        }
+
+        #contact .rating {
+            margin-top: 12px;
+            color: rgba(255, 255, 255, 0.86);
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+            #contact {
+                grid-template-columns: 1fr;
+                padding: 44px 18px;
+            }
+
+            #companies {
+                grid-template-columns: 1fr;
+            }
+
+            .companies-media,
+            .companies-media img {
+                min-height: 320px;
+            }
+
+            .companies-content {
+                padding: 28px 18px 34px;
+            }
+        }
+
+        footer {
+            background: #ffffff;
+            color: rgba(31, 31, 31, 0.92);
+            text-align: center;
+            padding: 26px 16px;
+            margin-top: 30px;
+            border-top: 1px solid var(--line);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header с контактами -->
+    <header>
+        <div>Приём заказов: 08:00–22:00 | Доставка 24/7 по Москве и МО</div>
+        <div>Корзина: 0 | Цена: 0 руб.</div>
+    </header>
+
+    <!-- Навигация -->
+    <nav>
+        <div class="nav-inner">
+            <div class="logo">VIBE FLOWER</div>
+            <ul>
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#catalog">Каталог</a></li>
+                <li><a href="#services">Услуги</a></li>
+                <li><a href="#companies">Компаниям</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+            <div class="nav-cta">Написать в TG | Позвонить</div>
+        </div>
+    </nav>
+
+    <!-- Hero секция с рекомендациями -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Авторские букеты и доставка</h1>
+            <a href="#catalog">Посмотреть все цветы</a>
+        </div>
+    </section>
+
+    <!-- Каталог (основная фича) -->
+    <section id="catalog" class="catalog-grid">
+        <div class="catalog-head">
+            <h2>Рекомендуем</h2>
+            <a class="catalog-all" href="#catalog">Показать все</a>
+        </div>
+        <!-- Подкатегории как фильтры -->
+        <div class="filters">
+            <a href="#">Авторские букеты</a> | <a href="#">Моно/Дуо/Трио</a> | <a href="#">Первоцветы</a> | <a href="#">Сезон сейчас</a>
+        </div>
+        <div class="product">
+            <img src="bouquet1.jpg" alt="Авторский букет">
+            <h3>Авторский букет</h3>
+            <p>От 5000 руб.</p>
+        </div>
+        <!-- Динамическая сетка для продуктов -->
+        <div class="product">...</div>
+    </section>
+
+    <!-- Для компаний -->
+    <section id="companies">
+        <div class="companies-media">
+            <img src="companies-art.jpg" alt="Для компаний">
+        </div>
+        <div class="companies-content">
+            <div>
+                <h2>Для компаний</h2>
+                <p>Флористическое оформление офисов, ресепшн и мероприятий под стиль вашего бренда.</p>
+            </div>
+            <a class="catalog-all" href="#contact">Обсудить проект</a>
+        </div>
+    </section>
+
+    <!-- Форма заказа/контакты -->
+    <section id="contact">
+        <div class="contact-left">
+            <h2>Заказать свой букет</h2>
+            <p class="contact-text">Свяжитесь с нами, и флорист подберет идеальную композицию под ваш повод, бюджет и желаемую доставку.</p>
+            <form>
+                <input placeholder="Имя">
+                <input placeholder="Телефон">
+                <button>Отправить</button>
+            </form>
+            <div class="rating">Отзывы: 5.0 (332)</div>
+        </div>
+        <div class="contact-right">
+            <img class="contact-photo" src="contact-photo.jpg" alt="Свяжитесь с нами">
+        </div>
+    </section>
+
+    <section id="reviews" class="reviews-section">
+        <div class="reviews-head">
+            <h2>Отзывы клиентов</h2>
+            <a class="catalog-all" href="#reviews">Читать</a>
+        </div>
+        <div class="reviews-grid">
+            <img class="review-photo" src="review1.jpg" alt="Отзывы клиентов 1">
+            <img class="review-photo" src="review2.jpg" alt="Отзывы клиентов 2">
+            <img class="review-photo" src="review3.jpg" alt="Отзывы клиентов 3">
+            <img class="review-photo" src="review4.jpg" alt="Отзывы клиентов 4">
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Цветочный магазин. Все права защищены.</p>
+    </footer>
+</body>
+</html>
