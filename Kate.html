@@ -1,0 +1,406 @@
+<html lang="ru" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Катерина Капустина — фотограф</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&amp;display=swap" rel="stylesheet" vid="7">
+    <style vid="8">
+        :root {
+            --bg-light: #FFFFFF;
+            --bg-input: #F0F0F0; 
+            --bg-dark: #080808;  
+            --text-main: #0F1419;
+            --text-sub: #666666;
+            --accent: #111411;   
+            --radius-pill: 999px;
+            --font-main: 'DM Sans', sans-serif;
+            --space-unit: 1rem;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-dark);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            color: var(--text-main);
+        }
+
+        
+        
+        
+        .control-panel {
+            width: 40%;
+            max-width: 600px;
+            background: var(--bg-light);
+            height: 100%;
+            padding: 4rem 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            z-index: 10;
+            overflow-y: auto;
+        }
+
+        
+        .gallery-viewport {
+            flex: 1;
+            background: var(--bg-dark);
+            height: 100%;
+            position: relative;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.04em; 
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: var(--text-main);
+        }
+
+        .brand-eyebrow {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-sub);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: block;
+            color: var(--text-main);
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-sub);
+            max-width: 90%;
+            margin-bottom: 3rem;
+        }
+
+        
+
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-field {
+            width: 100%;
+            background: var(--bg-input);
+            border: none;
+            border-radius: var(--radius-pill);
+            padding: 1.25rem 1.5rem;
+            font-family: var(--font-main);
+            font-size: 0.95rem;
+            color: var(--text-main);
+            outline: none;
+            transition: background 0.2s ease;
+        }
+
+        .input-field:focus {
+            background: #E8E8E8;
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+        }
+
+        .input-field::placeholder {
+            color: #999;
+        }
+
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius-pill);
+            padding: 1.25rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.01);
+        }
+
+        
+        .floating-status {
+            position: fixed;
+            top: 2rem;
+            left: calc(40% + 2rem);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.75rem;
+            font-weight: 400;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: #4AFF91;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(74, 255, 145, 0.4);
+        }
+
+        
+        .gallery-content {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-item {
+            position: relative;
+            width: 100%;
+            height: 90vh; 
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.1); 
+            transition: filter 0.5s ease, transform 0.7s ease;
+        }
+
+        .gallery-item:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.03);
+        }
+
+        .caption-overlay {
+            position: absolute;
+            bottom: 3rem;
+            left: 3rem;
+            color: white;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover .caption-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .caption-title {
+            font-size: 2rem;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+
+        .caption-meta {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        
+        .footer-legal {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            font-size: 0.75rem;
+            color: #999;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-right: 1.5rem;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: currentColor;
+            bottom: -2px;
+            left: 0;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+        
+        .nav-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        .link-sub {
+            font-size: 0.85rem;
+            color: var(--text-main);
+            text-decoration: underline;
+            cursor: pointer;
+            float: right;
+            margin-top: 0.5rem;
+        }
+
+        
+        ::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        @media (max-width: 1024px) {
+            body { flex-direction: column; overflow: auto; }
+            .control-panel { width: 100%; max-width: none; height: auto; min-height: 60vh; padding: 2rem; }
+            .gallery-viewport { height: auto; }
+            .floating-status { display: none; }
+            .gallery-item { height: 60vh; }
+        }
+    </style>
+</head>
+<body vid="9">
+
+    
+    <div class="floating-status" vid="10">
+        <div class="status-dot" vid="11"></div>
+        <span vid="12">Запись весна 2026</span>
+    </div>
+
+    
+    <aside class="control-panel" vid="13">
+        <div vid="14">
+            <span class="brand-eyebrow" vid="15">Катерина Капустина — фотограф</span>
+            <div style="margin-bottom: 2rem;" vid="16">
+                <a href="#" class="nav-link" vid="17">Работы</a>
+                <a href="#" class="nav-link" vid="18">Обо мне</a>
+                <a href="#" class="nav-link" vid="19">Журнал</a>
+            </div>
+
+            <h1 vid="20">Чистая драма человеческого контакта.</h1>
+            <p vid="21">Театральные портреты, искренние истории любви и тихий диалог между человеком и камерой.</p>
+        </div>
+
+        
+        <div class="inquiry-form" vid="22">
+            <span class="section-label" vid="23">Оставить заявку на съёмку:</span>
+            
+            <div class="input-group" vid="24">
+                <span class="section-label" style="font-size: 0.75rem; margin-bottom: 0.4rem;" vid="25">Имя:</span>
+                <input type="text" class="input-field" placeholder="Мария Иванова" vid="26">
+            </div>
+
+            <div class="input-group" vid="27">
+                <span class="section-label" style="font-size: 0.75rem; margin-bottom: 0.4rem;" vid="28">Тип проекта:</span>
+                <input type="text" class="input-field" placeholder="Портрет / Свадьба / Сцена" vid="29">
+            </div>
+
+            <button class="btn-primary" vid="30">
+                Свободные даты
+            </button>
+            <a class="link-sub" vid="31">Прайс</a>
+        </div>
+
+        <div class="footer-legal" vid="32">
+            <span vid="33">© Катерина Капустина, 2026</span>
+            <span vid="34">Москва · Санкт-Петербург · Рыбинск</span>
+        </div>
+    </aside>
+
+    
+    <main class="gallery-viewport" vid="35">
+        <div class="gallery-content" vid="36">
+            
+            
+            <div class="gallery-item" vid="37">
+                <img src="photo_theatre.jpg" alt="Театральная сцена, тёмный фон" vid="38">
+                <div class="caption-overlay" vid="39">
+                    <div class="caption-meta" vid="40">Школа студия МХАТ</div>
+                    <div class="caption-title" vid="41">«Гамлет»</div>
+                </div>
+            </div>
+
+            
+            <div class="gallery-item" vid="42">
+                <img src="photo_faces.jpg" alt="Драматичный портрет" vid="43">
+                <div class="caption-overlay" vid="44">
+                    <div class="caption-meta" vid="45">Студийные сессии</div>
+                    <div class="caption-title" vid="46">Лица</div>
+                </div>
+            </div>
+
+            
+            <div class="gallery-item" vid="47">
+                <img src="photo_love_story.jpg" alt="Пара, чёрно-белое" vid="48">
+                <div class="caption-overlay" vid="49">
+                    <div class="caption-meta" vid="50">Истории любви</div>
+                    <div class="caption-title" vid="51">Побег под дождём</div>
+                </div>
+            </div>
+
+            
+            <div class="gallery-item" vid="52">
+                <img src="photo_nu.jpg" alt="Текстура" vid="53">
+                <div class="caption-overlay" vid="54">
+                    <div class="caption-meta" vid="55">Личная серия</div>
+                    <div class="caption-title" vid="56">Тихие пространства</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script vid="57">
+        
+        const items = document.querySelectorAll('.gallery-item img');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.transform = 'scale(1)';
+                } else {
+                    entry.target.style.transform = 'scale(1.1)';
+                }
+            });
+        }, { threshold: 0.2 });
+
+        items.forEach(item => {
+            
+            item.style.transform = 'scale(1.1)';
+            observer.observe(item);
+        });
+    </script>
+
+</body></html>
