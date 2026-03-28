@@ -1,0 +1,363 @@
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Катерина Капустина — Работы</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+:root {
+--text-main: #1a1a1a;
+--text-sub: #555;
+}
+
+body {
+font-family: 'Georgia', serif;
+color: var(--text-main);
+background: #ffffff;
+}
+
+.page {
+display: flex;
+min-height: 100vh;
+}
+
+/* ── Left sidebar ── */
+.sidebar {
+width: 320px;
+min-width: 320px;
+padding: 48px 40px;
+position: sticky;
+top: 0;
+height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+border-right: 1px solid #eee;
+}
+
+.brand {
+font-family: 'Helvetica Neue', Arial, sans-serif;
+font-size: 0.75rem;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+color: var(--text-sub);
+margin-bottom: 8px;
+}
+
+nav {
+display: flex;
+gap: 20px;
+font-family: 'Helvetica Neue', Arial, sans-serif;
+font-size: 0.9rem;
+margin-bottom: 60px;
+}
+
+nav a {
+text-decoration: none;
+color: var(--text-main);
+}
+
+nav a.active {
+text-decoration: underline;
+text-underline-offset: 4px;
+}
+
+.sidebar-headline {
+font-size: 3rem;
+font-weight: 500;
+line-height: 1.1;
+letter-spacing: -0.04em;
+margin-bottom: 24px;
+}
+
+.sidebar-desc {
+font-size: 0.95rem;
+line-height: 1.6;
+color: var(--text-sub);
+margin-bottom: 48px;
+}
+
+.current-focus {
+margin-top: auto;
+margin-bottom: 40px;
+}
+
+.label-upper {
+font-family: 'Helvetica Neue', Arial, sans-serif;
+font-size: 0.7rem;
+text-transform: uppercase;
+letter-spacing: 0.12em;
+color: var(--text-sub);
+margin-bottom: 8px;
+}
+
+.current-focus p {
+font-size: 0.9rem;
+line-height: 1.5;
+color: var(--text-main);
+}
+
+.sidebar-footer {
+display: flex;
+justify-content: space-between;
+font-family: 'Helvetica Neue', Arial, sans-serif;
+font-size: 0.75rem;
+color: var(--text-sub);
+}
+
+.sidebar-footer a {
+color: var(--text-main);
+text-decoration: underline;
+text-underline-offset: 3px;
+font-size: 0.75rem;
+}
+
+/* ── Right content ── */
+.main {
+flex: 1;
+padding: 48px 40px;
+overflow-y: auto;
+}
+
+/* Filter bar */
+.filters {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-bottom: 32px;
+border-bottom: 1px solid #eee;
+padding-bottom: 16px;
+}
+
+.filter-tabs {
+display: flex;
+gap: 28px;
+font-family: 'Helvetica Neue', Arial, sans-serif;
+font-size: 0.8rem;
+text-transform: uppercase;
+letter-spacing: 0.08em;
+}
+
+.filter-tabs a {
+text-decoration: none;
+color: var(--text-sub);
+padding-bottom: 16px;
+margin-bottom: -17px;
+border-bottom: 2px solid transparent;
+transition: all 0.2s;
+}
+
+.filter-tabs a.active {
+color: var(--text-main);
+border-bottom-color: var(--text-main);
+}
+
+.filter-tabs a:hover {
+color: var(--text-main);
+}
+
+.sort-label {
+font-family: 'Helvetica Neue', Arial, sans-serif;
+font-size: 0.75rem;
+color: var(--text-sub);
+}
+
+/* Photo grid */
+.grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 24px;
+}
+
+.card {
+position: relative;
+overflow: hidden;
+border-radius: 4px;
+cursor: pointer;
+}
+
+.card img {
+width: 100%;
+height: 360px;
+object-fit: cover;
+filter: grayscale(100%);
+transition: filter 0.4s ease;
+display: block;
+}
+
+.card:hover img {
+filter: grayscale(0%);
+}
+
+.card-overlay {
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+padding: 20px 24px;
+background: linear-gradient(transparent, rgba(0,0,0,0.6));
+color: white;
+opacity: 0;
+transition: opacity 0.3s ease;
+}
+
+.card:hover .card-overlay {
+opacity: 1;
+}
+
+.card-title {
+font-size: 1.2rem;
+font-weight: 500;
+margin-bottom: 4px;
+}
+
+.card-meta {
+font-family: 'Helvetica Neue', Arial, sans-serif;
+font-size: 0.7rem;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+opacity: 0.8;
+}
+
+.card-count {
+display: inline-block;
+background: rgba(255,255,255,0.2);
+padding: 3px 10px;
+border-radius: 12px;
+font-family: 'Helvetica Neue', Arial, sans-serif;
+font-size: 0.65rem;
+text-transform: uppercase;
+letter-spacing: 0.08em;
+margin-left: 12px;
+}
+
+@media (max-width: 1024px) {
+.sidebar {
+display: none;
+}
+
+.main {
+    padding: 24px 16px;
+    }
+    }
+    
+    @media (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr;
+}
+.filter-tabs {
+flex-wrap: wrap;
+gap: 12px;
+}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="sidebar">
+<div>
+<div class="brand">Катерина Капустина</div>
+<nav>
+<a href="works.html" class="active">Работы</a>
+<a href="about.html">Обо мне</a>
+<a href="#">Журнал</a>
+</nav>
+
+<h1 class="sidebar-headline">Избранный архив.</h1>
+<p class="sidebar-desc">
+Коллекция визуальных историй на пересечении
+театра, близости и тихих наблюдений.
+</p>
+</div>
+
+<div>
+<div class="current-focus">
+<div class="label-upper">Сейчас в работе</div>
+<p>Документация осеннего репертуарного сезона в Театре Наций.</p>
+</div>
+
+<div class="sidebar-footer">
+<span>&copy; 2026</span>
+<a href="index.html">Заказать съёмку</a>
+</div>
+</div>
+</div>
+
+<div class="main">
+<div class="filters">
+<div class="filter-tabs">
+<a href="#" class="active">Все проекты</a>
+<a href="#">Театр</a>
+<a href="#">Портреты</a>
+<a href="#">Истории любви</a>
+<a href="#">Личное</a>
+</div>
+<span class="sort-label">По дате</span>
+</div>
+
+<div class="grid">
+<div class="card">
+<img src="work1.jpg" alt="Проект 1">
+<div class="card-overlay">
+<div class="card-title">«Гамлет»</div>
+<span class="card-meta">Театр · Москва</span>
+<span class="card-count">24 фото</span>
+</div>
+</div>
+
+<div class="card">
+<img src="work2.jpg" alt="Проект 2">
+<div class="card-overlay">
+<div class="card-title">Тихие лица</div>
+<span class="card-meta">Портрет · Студия</span>
+<span class="card-count">18 фото</span>
+</div>
+</div>
+
+<div class="card">
+<img src="work3.jpg" alt="Проект 3">
+<div class="card-overlay">
+<div class="card-title">Побег под дождём</div>
+<span class="card-meta">Истории любви · Петербург</span>
+<span class="card-count">32 фото</span>
+</div>
+</div>
+
+<div class="card">
+<img src="work4.jpg" alt="Проект 4">
+<div class="card-overlay">
+<div class="card-title">Три сестры</div>
+<span class="card-meta">Театр · Рыбинск</span>
+<span class="card-count">16 фото</span>
+</div>
+</div>
+
+<div class="card">
+<img src="work5.jpg" alt="Проект 5">
+<div class="card-overlay">
+<div class="card-title">Пространства</div>
+<span class="card-meta">Личное</span>
+<span class="card-count">12 фото</span>
+</div>
+</div>
+
+<div class="card">
+<img src="work6.jpg" alt="Проект 6">
+<div class="card-overlay">
+<div class="card-title">Утро перед свадьбой</div>
+<span class="card-meta">Истории любви · Москва</span>
+<span class="card-count">28 фото</span>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</body>
+</html>
