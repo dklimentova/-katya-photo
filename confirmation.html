@@ -108,8 +108,18 @@ color: var(--text-main);
 }
 
 .steps {
-list-style: none;
-padding: 0;
+position: relative;
+padding-left: 28px;
+}
+
+.steps::before {
+content: '';
+position: absolute;
+left: 5px;
+top: 8px;
+bottom: 8px;
+width: 1px;
+background: #ddd;
 }
 
 .steps li {
@@ -117,15 +127,26 @@ display: flex;
 align-items: flex-start;
 gap: 16px;
 margin-bottom: 28px;
+position: relative;
 }
 
 .step-dot {
-width: 10px;
-height: 10px;
-background: var(--text-main);
+width: 12px;
+height: 12px;
 border-radius: 50%;
-margin-top: 6px;
+margin-top: 4px;
 flex-shrink: 0;
+position: absolute;
+left: -28px;
+}
+
+.step-dot.active {
+background: var(--text-main);
+box-shadow: 0 0 0 4px #e0e0e0;
+}
+
+.step-dot.pending {
+background: #ccc;
 }
 
 .step-title {
@@ -190,28 +211,28 @@ font-size: 2.2rem;
 </div>
 
 <ul class="steps">
-<li>
-<div class="step-dot"></div>
-<div>
-<div class="step-title">Заявка получена</div>
-<div class="step-desc">Ваши данные добавлены в рабочий процесс.</div>
-</div>
-</li>
-<li>
-<div class="step-dot"></div>
-<div>
-<div class="step-title">Проверка дат</div>
-<div class="step-desc">Катерина лично проверит доступные даты в течение 24 часов.</div>
-</div>
-</li>
-<li>
-<div class="step-dot"></div>
-<div>
-<div class="step-title">Звонок-знакомство</div>
-<div class="step-desc">Свяжемся, чтобы обсудить идею и настроение съёмки.</div>
-</div>
-</li>
-</ul>
+    <li>
+    <div class="step-dot active"></div>
+    <div>
+    <div class="step-title">Заявка получена</div>
+    <div class="step-desc">Ваши данные добавлены в рабочий процесс.</div>
+    </div>
+    </li>
+    <li>
+    <div class="step-dot pending"></div>
+    <div>
+    <div class="step-title">Проверка дат</div>
+    <div class="step-desc">Катерина лично проверит доступные даты в течение 24 часов.</div>
+    </div>
+    </li>
+    <li>
+    <div class="step-dot pending"></div>
+    <div>
+    <div class="step-title">Звонок-знакомство</div>
+    <div class="step-desc">Свяжемся, чтобы обсудить идею и настроение съёмки.</div>
+    </div>
+    </li>
+    </ul>
 
 <div class="back-link">
 <a href="index.html">Вернуться на главную</a>
