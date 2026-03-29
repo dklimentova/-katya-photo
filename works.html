@@ -293,17 +293,17 @@ gap: 12px;
 <div class="main">
 <div class="filters">
 <div class="filter-tabs">
-<a href="#" class="active">Все проекты</a>
-<a href="#">Театр</a>
-<a href="#">Портреты</a>
-<a href="#">Истории любви</a>
-<a href="#">Личное</a>
+<a href="#" data-filter="all" class="active">Все проекты</a>
+<a href="#" data-filter="theatre">Театр</a>
+<a href="#" data-filter="portrait">Портреты</a>
+<a href="#" data-filter="love">Истории любви</a>
+<a href="#" data-filter="personal">Личное</a>
 </div>
 <span class="sort-label">По дате</span>
 </div>
 
 <div class="grid">
-<div class="card">
+<div class="card" data-category="theatre">
 <img src="work1.jpg" alt="Проект 1">
 <div class="card-overlay">
 <div class="card-title">«Гамлет»</div>
@@ -312,7 +312,7 @@ gap: 12px;
 </div>
 </div>
 
-<div class="card">
+<div class="card" data-category="portrait">
 <img src="work2.jpg" alt="Проект 2">
 <div class="card-overlay">
 <div class="card-title">Тихие лица</div>
@@ -321,7 +321,7 @@ gap: 12px;
 </div>
 </div>
 
-<div class="card">
+<div class="card" data-category="love"> 
 <img src="work3.jpg" alt="Проект 3">
 <div class="card-overlay">
 <div class="card-title">Побег под дождём</div>
@@ -330,7 +330,7 @@ gap: 12px;
 </div>
 </div>
 
-<div class="card">
+<div class="card" data-category="theatre">
 <img src="work4.jpg" alt="Проект 4">
 <div class="card-overlay">
 <div class="card-title">Три сестры</div>
@@ -339,7 +339,7 @@ gap: 12px;
 </div>
 </div>
 
-<div class="card">
+<div class="card" data-category="personal">
 <img src="work5.jpg" alt="Проект 5">
 <div class="card-overlay">
 <div class="card-title">Пространства</div>
@@ -348,7 +348,7 @@ gap: 12px;
 </div>
 </div>
 
-<div class="card">
+<div class="card" data-category="love">
 <img src="work6.jpg" alt="Проект 6">
 <div class="card-overlay">
 <div class="card-title">Утро перед свадьбой</div>
@@ -366,6 +366,15 @@ gap: 12px;
     e.preventDefault();
     document.querySelectorAll('.filter-tabs a').forEach(t => t.classList.remove('active'));
     this.classList.add('active');
+    
+    const filter = this.dataset.filter;
+    document.querySelectorAll('.card').forEach(card => {
+    if (filter === 'all' || card.dataset.category === filter) {
+    card.style.display = '';
+    } else {
+    card.style.display = 'none';
+    }
+    });
     });
     });
     </script>
