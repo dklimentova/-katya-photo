@@ -1,0 +1,375 @@
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Катерина Капустина — Видео</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --text-main: #1a1a1a;
+      --text-sub: #555;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      color: var(--text-main);
+      background: #ffffff;
+    }
+
+    .page {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── Left sidebar ── */
+    .sidebar {
+      width: 40%;
+      min-width: auto
+      padding: 48px 52px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid #eee;
+    }
+
+    .brand {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      margin-bottom: 60px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    nav a.active {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .sidebar-headline {
+      font-size: 3rem;
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+
+    .sidebar-desc {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-sub);
+      margin-bottom: 48px;
+    }
+
+    .filter-group {
+      margin-bottom: 48px;
+    }
+
+    .label-upper {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-sub);
+      margin-bottom: 12px;
+    }
+
+    .filter-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .filter-links a {
+      text-decoration: none;
+      color: var(--text-sub);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .filter-links a:hover,
+    .filter-links a.active {
+      color: var(--text-main);
+    }
+
+    .sidebar-footer {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      color: var(--text-sub);
+    }
+
+    .sidebar-footer a {
+      color: var(--text-main);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-size: 0.75rem;
+    }
+
+    /* ── Right content ── */
+    .main {
+      flex: 1;
+      padding: 48px 40px;
+      overflow-y: auto;
+    }
+
+    .video-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .video-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .video-card .thumbnail {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+    }
+
+    .video-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: filter 0.4s ease, transform 0.4s ease;
+      display: block;
+    }
+
+    .video-card:hover img {
+      filter: grayscale(0%);
+      transform: scale(1.02);
+    }
+
+    /* Play button */
+    .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 64px;
+      height: 64px;
+      border: 2px solid rgba(255,255,255,0.8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: rgba(0,0,0,0.3);
+    }
+
+    .play-icon::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 0 10px 18px;
+      border-color: transparent transparent transparent rgba(255,255,255,0.9);
+      margin-left: 4px;
+    }
+
+    .video-card:hover .play-icon {
+      opacity: 1;
+    }
+
+    /* Duration badge */
+    .duration {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .video-info {
+      padding: 16px 0;
+    }
+
+    .video-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .video-meta {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .video-divider {
+      width: 100%;
+      height: 1px;
+      background: #eee;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 1024px) {
+      .sidebar {
+        display: none;
+      }
+      .main {
+        padding: 24px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="sidebar">
+      <div>
+        <div class="brand">Катерина Капустина</div>
+        <nav>
+          <a href="works.html">Работы</a>
+          <a href="about.html">Обо мне</a>
+          <a href="video.html" class="active">Видео</a>
+        </nav>
+
+        <h1 class="sidebar-headline">Живые<br>истории.</h1>
+        <p class="sidebar-desc">
+          Короткие фильмы о настоящих моментах — 
+          от тихих утренних сборов до первого танца.
+        </p>
+      </div>
+
+      <div>
+        <div class="filter-group">
+          <div class="label-upper">Категории</div>
+          <div class="filter-links">
+            <a href="#" class="active" data-filter="all">Все</a>
+            <a href="#" data-filter="wedding">Свадьбы</a>
+            <a href="#" data-filter="love">Истории любви</a>
+            <a href="#" data-filter="personal">Личное</a>
+          </div>
+        </div>
+
+        <div class="sidebar-footer">
+          <span>&copy; 2026</span>
+          <a href="index.html">Заказать съёмку</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="video-grid">
+
+        <div class="video-card" data-category="wedding">
+          <div class="thumbnail">
+            <img src="video-thumb-1.jpg" alt="Свадьба Алексея и Марии">
+            <div class="play-icon"></div>
+            <div class="duration">2:48</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">Алексей и Мария</div>
+            <div class="video-meta">Свадьба · Москва · Июнь 2025</div>
+          </div>
+          <div class="video-divider"></div>
+        </div>
+
+        <div class="video-card" data-category="love">
+          <div class="thumbnail">
+            <img src="video-thumb-2.jpg" alt="Love Story в Петербурге">
+            <div class="play-icon"></div>
+            <div class="duration">1:52</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">Побег в дождь</div>
+            <div class="video-meta">Истории любви · Петербург · Октябрь 2025</div>
+          </div>
+          <div class="video-divider"></div>
+        </div>
+
+        <div class="video-card" data-category="wedding">
+          <div class="thumbnail">
+             <img src="video-thumb-3.jpg" alt="Утро невесты">
+            <div class="play-icon"></div>
+            <div class="duration">3:15</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">Утро перед началом</div>
+            <div class="video-meta">Свадьба · Рыбинск · Август 2025</div>
+          </div>
+          <div class="video-divider"></div>
+        </div>
+
+        <div class="video-card" data-category="personal">
+          <div class="thumbnail">
+            <img src="video-thumb-4.jpg" alt="Пространства">
+            <div class="play-icon"></div>
+            <div class="duration">1:20</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">Пространства</div>
+            <div class="video-meta">Личное · 2025</div>
+          </div>
+          <div class="video-divider"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    document.querySelectorAll('.filter-links a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.filter-links a').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.dataset.filter;
+        document.querySelectorAll('.video-card').forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
