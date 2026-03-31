@@ -282,6 +282,172 @@
             width: 0px;
         }
 
+        /* ── Прайс-попап ── */
+        .price-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            display: flex;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        .price-overlay.open {
+            pointer-events: all;
+            opacity: 1;
+        }
+
+        .price-backdrop {
+            flex: 1;
+            background: rgba(8, 8, 8, 0.45);
+            backdrop-filter: blur(6px);
+            cursor: pointer;
+        }
+
+        .price-panel {
+            width: 62%;
+            max-width: 900px;
+            background: #EDECE8;
+            height: 100%;
+            padding: 3rem 3.5rem 3rem;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        .price-overlay.open .price-panel {
+            transform: translateX(0);
+        }
+
+        .price-close {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            font-family: var(--font-main);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 2.5rem;
+        }
+        .price-close:hover { opacity: 0.6; }
+
+        .price-eyebrow {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-sub);
+            margin-bottom: 0.75rem;
+        }
+        .price-eyebrow strong {
+            color: var(--text-main);
+            font-weight: 400;
+        }
+
+        .price-heading {
+            font-size: 3rem;
+            font-weight: 500;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+            color: var(--text-main);
+        }
+
+        .price-sub {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-sub);
+            max-width: 480px;
+            margin-bottom: 0;
+        }
+
+        .price-divider {
+            border: none;
+            border-top: 1px solid #D5D3CE;
+            margin: 2.5rem 0;
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            flex: 1;
+        }
+
+        .price-col-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.4rem;
+            color: var(--text-main);
+        }
+
+        .price-col-amount {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            margin-bottom: 1.5rem;
+        }
+
+        .price-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 2rem;
+        }
+        .price-features li {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            padding-left: 1.2rem;
+            position: relative;
+        }
+        .price-features li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: #AAAAAA;
+        }
+
+        .btn-select {
+            display: block;
+            width: 100%;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #C8C6C0;
+            border-radius: var(--radius-pill);
+            background: transparent;
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            color: var(--text-main);
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.2s ease, border-color 0.2s ease;
+            margin-top: auto;
+        }
+        .btn-select:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        @media (max-width: 1024px) {
+            .price-panel { width: 90%; padding: 2.5rem 2rem; }
+            .price-heading { font-size: 2.2rem; }
+            .price-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+        }
+
+        @media (max-width: 600px) {
+            .price-panel { width: 100%; border-radius: 1.5rem 1.5rem 0 0; }
+            .price-overlay { align-items: flex-end; }
+            .price-backdrop { position: absolute; inset: 0; }
+            .price-panel { height: 90%; }
+            .price-heading { font-size: 1.8rem; }
+        }
+
         /* Планшет */
         @media (max-width: 1024px) {
             body { flex-direction: column; overflow: auto; }
@@ -453,6 +619,7 @@
                 <a href="works.html" class="nav-link">Работы</a>
                 <a href="about.html" class="nav-link">Обо мне</a>
                 <a href="video.html" class="nav-link">Видео</a>
+                <button class="nav-link" id="openPriceMobile" style="background:none;border:none;cursor:pointer;font-family:var(--font-main);padding:0;">Прайс</button>
             </nav>
         </div>
         <button class="btn-contact-mobile" id="openForm">Написать</button>
@@ -492,6 +659,7 @@
                 <a href="works.html" class="nav-link" vid="17">Работы</a>
                 <a href="about.html" class="nav-link" vid="18">Обо мне</a>
                 <a href="video.html" class="nav-link" vid="19">Видео</a>
+                <button class="nav-link" id="openPrice" style="background:none;border:none;cursor:pointer;font-family:var(--font-main);padding:0;">Прайс</button>
             </div>
 
             <h1 vid="20">Чистая драма человеческого контакта.</h1>
@@ -565,11 +733,88 @@
         </div>
     </main>
 
+    <!-- Прайс-попап -->
+    <div class="price-overlay" id="priceOverlay">
+        <div class="price-backdrop" id="priceBackdrop"></div>
+        <div class="price-panel">
+            <button class="price-close" id="closePrice">✕ &nbsp;ЗАКРЫТЬ</button>
+
+            <p class="price-eyebrow"><strong>УСЛУГИ</strong> &amp; СТОИМОСТЬ</p>
+            <h2 class="price-heading">Пакеты съёмки</h2>
+            <p class="price-sub">Каждый проект строится под эмоциональную историю. Базовые тарифы — отправная точка разговора.</p>
+
+            <hr class="price-divider">
+
+            <div class="price-grid">
+                <div class="price-col">
+                    <div class="price-col-title">Портрет</div>
+                    <div class="price-col-amount">от 15 000 ₽</div>
+                    <ul class="price-features">
+                        <li>Съёмка 90 минут</li>
+                        <li>Студия или локация</li>
+                        <li>15 обработанных кадров</li>
+                        <li>Доступ к галерее</li>
+                        <li>Творческая режиссура</li>
+                    </ul>
+                    <button class="btn-select" data-package="Портрет">Выбрать пакет</button>
+                </div>
+                <div class="price-col">
+                    <div class="price-col-title">Лав-стори</div>
+                    <div class="price-col-amount">от 35 000 ₽</div>
+                    <ul class="price-features">
+                        <li>Полный день</li>
+                        <li>Два фотографа</li>
+                        <li>Плёночные кадры</li>
+                        <li>Фотокнига в льне</li>
+                        <li>Выезд по Москве</li>
+                    </ul>
+                    <button class="btn-select" data-package="Лав-стори">Выбрать пакет</button>
+                </div>
+                <div class="price-col">
+                    <div class="price-col-title">Театр</div>
+                    <div class="price-col-amount">По запросу</div>
+                    <ul class="price-features">
+                        <li>Репетиция и спектакль</li>
+                        <li>Актёрские хедшоты</li>
+                        <li>Производственные стоп-кадры</li>
+                        <li>Файлы для пресс-кита</li>
+                        <li>Архивные права</li>
+                    </ul>
+                    <button class="btn-select" data-package="Театр">Выбрать пакет</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Форма (мобильный bottom sheet)
         const overlay = document.getElementById('formOverlay');
         document.getElementById('openForm').addEventListener('click', () => overlay.classList.add('open'));
         document.getElementById('closeForm').addEventListener('click', () => overlay.classList.remove('open'));
         overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('open'); });
+
+        // Прайс-попап
+        const priceOverlay = document.getElementById('priceOverlay');
+        const openPriceFn = () => priceOverlay.classList.add('open');
+        const closePriceFn = () => priceOverlay.classList.remove('open');
+
+        document.getElementById('openPrice').addEventListener('click', openPriceFn);
+        document.getElementById('openPriceMobile').addEventListener('click', openPriceFn);
+        document.getElementById('closePrice').addEventListener('click', closePriceFn);
+        document.getElementById('priceBackdrop').addEventListener('click', closePriceFn);
+
+        // "Выбрать пакет" — закрывает прайс и открывает форму
+        document.querySelectorAll('.btn-select').forEach(btn => {
+            btn.addEventListener('click', () => {
+                closePriceFn();
+                // На мобиле открываем bottom sheet, на десктопе скроллим к форме
+                if (window.innerWidth <= 600) {
+                    overlay.classList.add('open');
+                } else {
+                    document.querySelector('.inquiry-form').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
     </script>
 
     <script vid="57">
