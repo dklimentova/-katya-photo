@@ -303,31 +303,182 @@
             .caption-overlay { opacity: 1; transform: translateY(0); }
         }
 
+        /* Мобильный хедер — скрыт на десктопе */
+        .mobile-header { display: none; }
+
+        /* Оверлей формы */
+        .mobile-form-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(8, 8, 8, 0.6);
+            backdrop-filter: blur(4px);
+            align-items: flex-end;
+        }
+        .mobile-form-overlay.open { display: flex; }
+
+        .mobile-form-sheet {
+            background: var(--bg-light);
+            width: 100%;
+            border-radius: 1.5rem 1.5rem 0 0;
+            padding: 2rem 1.5rem 2.5rem;
+            transform: translateY(100%);
+            transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        .mobile-form-overlay.open .mobile-form-sheet {
+            transform: translateY(0);
+        }
+
+        .mobile-form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.75rem;
+        }
+        .mobile-form-title {
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .btn-close {
+            width: 2rem;
+            height: 2rem;
+            background: var(--bg-input);
+            border: none;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+        }
+
         /* Мобильный */
         @media (max-width: 600px) {
-            .caption-overlay { opacity: 1; transform: translateY(0); }
+            body {
+                flex-direction: column;
+                overflow: hidden;
+                height: 100dvh;
+            }
+
+            /* Прячем десктопную панель */
+            .control-panel { display: none; }
+            .floating-status { display: none; }
+
+            /* Мобильный хедер */
+            .mobile-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: var(--bg-light);
+                padding: 1rem 1.25rem;
+                flex-shrink: 0;
+                z-index: 10;
+            }
+            .mobile-header-left {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .mobile-brand {
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: var(--text-sub);
+            }
+            .mobile-nav { display: flex; gap: 1.1rem; }
+            .mobile-nav .nav-link { font-size: 0.85rem; margin-right: 0; }
+            .btn-contact-mobile {
+                background: var(--accent);
+                color: white;
+                border: none;
+                border-radius: var(--radius-pill);
+                padding: 0.65rem 1.25rem;
+                font-family: var(--font-main);
+                font-size: 0.85rem;
+                font-weight: 500;
+                cursor: pointer;
+                white-space: nowrap;
+            }
+
+            /* Горизонтальная галерея */
+            .gallery-viewport {
+                flex: 1;
+                overflow: hidden;
+                height: auto;
+            }
+            .gallery-content {
+                display: flex;
+                flex-direction: row;
+                height: 100%;
+                overflow-x: auto;
+                overflow-y: hidden;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .gallery-content::-webkit-scrollbar { display: none; }
+
+            .gallery-item {
+                min-width: 85vw;
+                height: 100%;
+                scroll-snap-align: start;
+                margin-right: 0.5rem;
+            }
+            .gallery-item:last-child { margin-right: 0; min-width: 100vw; }
+
             .gallery-item img { filter: grayscale(0%); }
-            .control-panel { padding: 2rem 1.25rem 1.5rem; gap: 1.5rem; }
-            h1 { font-size: 1.9rem; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
-            p { font-size: 0.9rem; max-width: 100%; margin-bottom: 0; }
-            .gallery-item { height: 80vw; min-height: 260px; }
-            .caption-title { font-size: 1.4rem; }
-            .caption-overlay { bottom: 1.5rem; left: 1.5rem; }
-            .btn-primary { padding: 1rem 1.5rem; font-size: 0.95rem; }
+            .caption-overlay { opacity: 1; transform: translateY(0); bottom: 1.5rem; left: 1.25rem; }
+            .caption-title { font-size: 1.5rem; }
+            .caption-meta { font-size: 0.75rem; }
+
+            /* Форма в оверлее */
             .input-field { padding: 1rem 1.25rem; font-size: 0.9rem; }
             .input-group { margin-bottom: 1rem; }
-            .footer-legal {
-                flex-direction: column;
-                gap: 0.25rem;
-                font-size: 0.7rem;
-            }
-            .nav-link { font-size: 0.85rem; margin-right: 1rem; }
+            .btn-primary { padding: 1rem 1.5rem; font-size: 0.95rem; }
         }
     </style>
 </head>
 <body vid="9">
 
     
+    <!-- Мобильный хедер -->
+    <header class="mobile-header">
+        <div class="mobile-header-left">
+            <span class="mobile-brand">Катерина Капустина — фотограф</span>
+            <nav class="mobile-nav">
+                <a href="works.html" class="nav-link">Работы</a>
+                <a href="about.html" class="nav-link">Обо мне</a>
+                <a href="video.html" class="nav-link">Видео</a>
+            </nav>
+        </div>
+        <button class="btn-contact-mobile" id="openForm">Написать</button>
+    </header>
+
+    <!-- Оверлей формы -->
+    <div class="mobile-form-overlay" id="formOverlay">
+        <div class="mobile-form-sheet">
+            <div class="mobile-form-header">
+                <span class="mobile-form-title">Написать мне</span>
+                <button class="btn-close" id="closeForm">✕</button>
+            </div>
+            <form action="confirmation.html">
+                <div class="input-group">
+                    <span class="section-label" style="font-size: 0.75rem; margin-bottom: 0.4rem;">Имя:</span>
+                    <input type="text" class="input-field" placeholder="Мария Иванова">
+                </div>
+                <div class="input-group">
+                    <span class="section-label" style="font-size: 0.75rem; margin-bottom: 0.4rem;">Тип проекта:</span>
+                    <input type="text" class="input-field" placeholder="Портрет / Свадьба / Сцена">
+                </div>
+                <button type="submit" class="btn-primary">Свободные даты</button>
+            </form>
+        </div>
+    </div>
+
     <div class="floating-status" vid="10">
         <div class="status-dot" vid="11"></div>
         <span vid="12">Запись весна 2026</span>
@@ -413,6 +564,13 @@
 
         </div>
     </main>
+
+    <script>
+        const overlay = document.getElementById('formOverlay');
+        document.getElementById('openForm').addEventListener('click', () => overlay.classList.add('open'));
+        document.getElementById('closeForm').addEventListener('click', () => overlay.classList.remove('open'));
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('open'); });
+    </script>
 
     <script vid="57">
         
