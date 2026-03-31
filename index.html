@@ -282,12 +282,46 @@
             width: 0px;
         }
 
+        /* Планшет */
         @media (max-width: 1024px) {
             body { flex-direction: column; overflow: auto; }
-            .control-panel { width: 100%; max-width: none; height: auto; min-height: 60vh; padding: 2rem; }
+            .control-panel {
+                width: 100%;
+                max-width: none;
+                height: auto;
+                min-height: unset;
+                padding: 2.5rem 2rem 2rem;
+                justify-content: flex-start;
+                gap: 2rem;
+            }
+            h1 { font-size: 2.6rem; margin-bottom: 1rem; }
+            p { margin-bottom: 1.5rem; }
             .gallery-viewport { height: auto; }
             .floating-status { display: none; }
-            .gallery-item { height: 60vh; }
+            .gallery-item { height: 70vw; min-height: 320px; }
+            /* caption всегда видна на планшете */
+            .caption-overlay { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Мобильный */
+        @media (max-width: 600px) {
+            .caption-overlay { opacity: 1; transform: translateY(0); }
+            .gallery-item img { filter: grayscale(0%); }
+            .control-panel { padding: 2rem 1.25rem 1.5rem; gap: 1.5rem; }
+            h1 { font-size: 1.9rem; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+            p { font-size: 0.9rem; max-width: 100%; margin-bottom: 0; }
+            .gallery-item { height: 80vw; min-height: 260px; }
+            .caption-title { font-size: 1.4rem; }
+            .caption-overlay { bottom: 1.5rem; left: 1.5rem; }
+            .btn-primary { padding: 1rem 1.5rem; font-size: 0.95rem; }
+            .input-field { padding: 1rem 1.25rem; font-size: 0.9rem; }
+            .input-group { margin-bottom: 1rem; }
+            .footer-legal {
+                flex-direction: column;
+                gap: 0.25rem;
+                font-size: 0.7rem;
+            }
+            .nav-link { font-size: 0.85rem; margin-right: 1rem; }
         }
     </style>
 </head>
