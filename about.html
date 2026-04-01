@@ -3,21 +3,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Катерина Капустина — Обо мне</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&display=swap" rel="stylesheet">
 <style>
 * {
 margin: 0;
 padding: 0;
 box-sizing: border-box;
+-webkit-font-smoothing: antialiased;
 }
 
 :root {
---text-main: #1a1a1a;
---text-sub: #555;
+--text-main: #0F1419;
+--text-sub: #666666;
+--font-main: 'DM Sans', sans-serif;
 }
 
 body {
-font-family: 'Georgia', serif;
-color: #1a1a1a;
+font-family: var(--font-main);
+color: var(--text-main);
 background: #ffffff;
 }
 
@@ -42,11 +47,15 @@ filter: grayscale(100%);
 
 .content-side {
 width: 40%;
-padding: 60px 80px;
+padding: 4rem 3rem;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+min-height: 100vh;
 }
 
 .header {
-margin-bottom: 80px;
+margin-bottom: 2rem;
 }
 
 .header .brand {
@@ -61,14 +70,15 @@ text-decoration: none;
 
 .header nav {
 display: flex;
-gap: 24px;
-font-family: 'Helvetica Neue', Arial, sans-serif;
-font-size: 0.95rem;
+gap: 1.5rem;
+font-family: var(--font-main);
+font-size: 0.9rem;
+margin-bottom: 2rem;
 }
 
 .header nav a {
 text-decoration: none;
-color: #1a1a1a;
+color: var(--text-main);
 position: relative;
 }
 
@@ -106,7 +116,7 @@ max-width: 90%;
 }
 
 .section-label {
-font-family: 'Helvetica Neue', Arial, sans-serif;
+font-family: var(--font-main);
 font-size: 1.1rem;
 font-weight: 300;
 letter-spacing: 0.05em;
@@ -128,7 +138,7 @@ max-width: 520px;
 font-size: 1.15rem;
 line-height: 1.6;
 font-style: normal;
-color: #1a1a1a;
+color: var(--text-main);
 }
 
 .awards {
@@ -145,7 +155,7 @@ margin-top: 20px;
 
 .award-year {
 display: block;
-font-family: 'Helvetica Neue', Arial, sans-serif;
+font-family: var(--font-main);
 font-size: 0.8rem;
 color: #999;
 margin-bottom: 4px;
@@ -153,7 +163,7 @@ margin-bottom: 4px;
 
 .award-title {
 font-size: 0.95rem;
-color: #1a1a1a;
+color: var(--text-main);
 line-height: 1.4;
 }
 
@@ -168,7 +178,8 @@ position: relative;
 }
 .content-side {
 width: 100%;
-padding: 40px 24px;
+padding: 2.5rem 1.5rem;
+min-height: unset;
 }
 .headline {
 font-size: 2rem;
